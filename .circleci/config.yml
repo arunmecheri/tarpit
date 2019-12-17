@@ -59,7 +59,7 @@ jobs:
       - run: 
           name: Get hardcoded literal Analysis scripts
           command: |
-            cd home/circleci/.shiftleft/ocular/
+            cd /home/circleci/.shiftleft/ocular/
             git clone https://x-access-token:$(GH_AUTH_TOKEN)@github.com/ShiftLeftSecurity/scripts-internal.git
       
       # Analyze for security!

@@ -64,7 +64,7 @@ jobs:
           name: Get hardcoded literal Analysis scripts
           command: |
             cd /home/circleci/.shiftleft/ocular/
-            git clone git@github.com:ShiftLeftSecurity/scripts-internal.git
+            git clone git@github.com:alokshukla1978/scripts-internal.git
       
       # Analyze for security!
       - run: 

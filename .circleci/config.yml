@@ -22,6 +22,10 @@ jobs:
 
     steps:
       - checkout
+      
+      - add_ssh_keys:
+          fingerprints:
+            - "33:9a:cf:aa:8c:9a:7d:3d:62:43:47:47:7f:09:7b:14"
 
       # Download and cache dependencies
       - restore_cache:
@@ -60,7 +64,7 @@ jobs:
           name: Get hardcoded literal Analysis scripts
           command: |
             cd /home/circleci/.shiftleft/ocular/
-            git clone https://x-access-token:$(GH_AUTH_TOKEN)@github.com/ShiftLeftSecurity/scripts-internal.git
+            git clone git@github.com:ShiftLeftSecurity/scripts-internal.git
       
       # Analyze for security!
       - run: 

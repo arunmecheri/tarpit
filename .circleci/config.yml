@@ -75,8 +75,8 @@ jobs:
   
       # Print hardcoded literals!
       - run: 
-          name: Analyze for hardcoded literals
-          command: cat sensitive_literal.json
+          name: Hardcoded results printed
+          command: cat /home/circleci/.shiftleft/ocular/sensitive_literal.json
   
     
       

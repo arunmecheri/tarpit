@@ -59,7 +59,7 @@ jobs:
       
       # Analyze for security!
       - run: 
-          name: Analyze for security bugs
+          name: Analyze for security bugs!
           command: sl analyze --wait --app $APP_NAME target/servlettarpit.war
           
       # Test Security Results

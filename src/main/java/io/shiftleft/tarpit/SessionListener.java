@@ -1,6 +1,5 @@
 package io.shiftleft.tarpit;
 
-
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;

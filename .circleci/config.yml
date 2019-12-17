@@ -51,7 +51,7 @@ jobs:
           name: Install Ocular Installation!
           command: sl update ocular
      
-     # build the apps
+     # build the apps!
       - run: 
           name: Build the application!
           command: mvn clean package

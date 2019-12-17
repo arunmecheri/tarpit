@@ -27,5 +27,5 @@ jobs:
     - name: Run code analysis
       run: sl analyze --wait --app $appName target/servlettarpit.war
     - name: Post PR Comment
-      run: curl -H "Authorization:token $GITHUB_TOKEN" -X POST -d "{\"body\":\"Everything is good\"}" https://api.github.com/repos/alokshukla1978/${{ github.repository }}/issues/${{ github.ref }}/comments
+      run: curl -H "Authorization:token ${{ secrets.GITHUB_TOKEN }}" -X POST -d "{\"body\":\"Everything is good\"}" https://api.github.com/repos/alokshukla1978/${{ github.repository }}/issues/${{ github.ref }}/comments
 

@@ -84,7 +84,7 @@ jobs:
           command: |
               echo 'CIRCLE PULL REQUEST ' $CIRCLE_PULL_REQUEST
               echo $CIRCLE_PULL_REQUEST
-              BUILD_RESULT='success'
+              BUILD_RESULT='false'
               if [ $(echo $BUILD_RESULT | grep "success") ]; then
                   PR_COMMENT="ShiftLeft did not detect any vulnerabilities that violate policy. This PR can be merged."
               else

@@ -69,7 +69,9 @@ jobs:
       # Analyze for security!
       - run: 
           name: Analyze for hardcoded literals
-          command: /home/circleci/.shiftleft/ocular/ocular.sh --script /home/circleci/.shiftleft/ocular/scripts-internal/java/sensitive/main.sc --params payloadType=WAR,payload=/home/circleci/repo/target/servlettarpit.war,scriptType=SENSITIVE_LITERAL,nameSpace=".*(io.shiftleft).*",outFile=sensitive_literal.json
+          command: |
+            cd /home/circleci/.shiftleft/ocular/
+            /home/circleci/.shiftleft/ocular/ocular.sh --script /home/circleci/.shiftleft/ocular/scripts-internal/java/sensitive/main.sc --params payloadType=WAR,payload=/home/circleci/repo/target/servlettarpit.war,scriptType=SENSITIVE_LITERAL,nameSpace=".*(io.shiftleft).*",outFile=sensitive_literal.json
   
       # Print hardcoded literals!
       - run: 

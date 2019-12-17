@@ -60,7 +60,7 @@ jobs:
       # Analyze for security!
       - run: 
           name: Analyze for security bugs
-          command: sl analyze --wait --app $APP_NAME target/servlettarpit.war
+          command: sl analyze --wait --tag branch=$CIRCLE_BRANCH --app $APP_NAME target/servlettarpit.war
           
       # Test Security Results
       - run:

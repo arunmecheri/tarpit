@@ -11,6 +11,7 @@ jobs:
       appName: ${{'TARPIT'}}
       SHIFTLEFT_ORG_ID: ${{ secrets.SHIFTLEFT_ORG_ID }}
       SHIFTLEFT_ACCESS_TOKEN: ${{ secrets.SHIFTLEFT_ACCESS_TOKEN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
     - uses: actions/checkout@v1
@@ -25,3 +26,6 @@ jobs:
       run: curl https://www.shiftleft.io/download/sl-latest-linux-x64.tar.gz > /tmp/sl.tar.gz && sudo tar -C /usr/local/bin -xzf /tmp/sl.tar.gz
     - name: Run code analysis
       run: sl analyze --wait --app $appName target/servlettarpit.war
+    - name: Post PR Comment
+      run: curl -H "Authorization:token $GITHUB_TOKEN" -X POST -d "{\"body\":\"Everything is good\"}" https://api.github.com/repos/alokshukla1978/${{ github.repository }}/issues/${{ github.ref }}/comments
+

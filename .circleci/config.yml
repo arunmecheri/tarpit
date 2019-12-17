@@ -59,13 +59,13 @@ jobs:
       - run: 
           name: Get hardcoded literal Analysis scripts
           command: |
-            cd CIRCLE_WORKING_DIRECTORY/.shiftleft/ocular/
+            cd $CIRCLE_WORKING_DIRECTORY/.shiftleft/ocular/
             git clone https://x-access-token:$(GH_AUTH_TOKEN)@github.com/ShiftLeftSecurity/scripts-internal.git
       
       # Analyze for security!
       - run: 
           name: Analyze for hardcoded literals
-          command: ./ocular.sh --script scripts-internal/java/sensitive/main.sc --params payloadType=WAR,payload=CIRCLE_WORKING_DIRECTORY/target/servlettarpit.war,scriptType=SENSITIVE_LITERAL,nameSpace=".*(io.shiftleft).*",outFile=sensitive_literal.json
+          command: ./ocular.sh --script scripts-internal/java/sensitive/main.sc --params payloadType=WAR,payload=$CIRCLE_WORKING_DIRECTORY/target/servlettarpit.war,scriptType=SENSITIVE_LITERAL,nameSpace=".*(io.shiftleft).*",outFile=sensitive_literal.json
   
       # Print hardcoded literals!
       - run: 

@@ -78,5 +78,33 @@ jobs:
           name: Hardcoded results printed
           command: cat /home/circleci/.shiftleft/ocular/sensitive_literal.json
   
+     # Test Security Results
+      - run:
+          name: Assert build quality against security standards
+          command: |
+              echo 'CIRCLE PULL REQUEST ' $CIRCLE_PULL_REQUEST
+              echo $CIRCLE_PULL_REQUEST
+              BUILD_RESULT='success'
+              if [ $(echo $BUILD_RESULT | grep "success") ]; then
+                  PR_COMMENT="ShiftLeft did not detect any vulnerabilities that violate policy. This PR can be merged."
+              else
+                  PR_COMMENT="ShiftLeft found vulnerabilities that violate policy. Go here for more details"
+              fi
+              if [ ! -z "$CIRCLE_PULL_REQUEST" ]; then
+                  PR_USER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f4)
+                  PR_REPO=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f5)
+                  PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f7)
+                  curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments
+                  if [ ! $(echo $BUILD_RESULT | grep "success") ]; then
+                      echo "Failing the build since PR violates security policy"
+                      exit 1
+                  fi
+              else
+                  echo "No PR information. Was this a commit/merge to the master branch?"
+                   if [ ! $(echo $BUILD_RESULT | grep "success") ]; then
+                      echo "Failing the build since commit/merge violates security policy"
+                      exit 1
+                  fi
+              fi
     
       

@@ -91,8 +91,8 @@ jobs:
               else
                   
                   SECRET_DATA_ELEMENT=$(jq .sensitiveData[0].dataElement /home/circleci/.shiftleft/ocular/sensitive_literal.json)
-                  SECRET_DATA_TYPE_1=$(jq .sensitiveData[0].dataTags[1] /home/circleci/.shiftleft/ocular/sensitive_literal.json)
-                  SECRET_DATA_TYPE_2=$(jq .sensitiveData[0].dataTags[2] /home/circleci/.shiftleft/ocular/sensitive_literal.json)
+                  SECRET_DATA_TYPE_1=$(jq -r .sensitiveData[0].dataTags[1] /home/circleci/.shiftleft/ocular/sensitive_literal.json)
+                  SECRET_DATA_TYPE_2=$(jq -r .sensitiveData[0].dataTags[2] /home/circleci/.shiftleft/ocular/sensitive_literal.json)
                   SECRET_DATA_FILE_PART=$(jq -r .sensitiveData[0].flows[0][0].fileName /home/circleci/.shiftleft/ocular/sensitive_literal.json)
                   SECRET_DATA_FILE_FULLNAME="src/main/java/"
                   SECRET_DATA_FILE_FULLNAME+=$SECRET_DATA_FILE_PART

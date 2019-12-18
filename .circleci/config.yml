@@ -109,7 +109,7 @@ jobs:
                   UDT_SINK_METHODNAME=$(jq -r .sensitiveData[0].flows[0][32].methodNameShort /home/circleci/.shiftleft/ocular/sensitive_data.json)               
          
                   UDT_SRCFILE_FULLNAME="https://github.com/alokshukla1978/tarpit/blob/master/src/main/java/"
-                  UDT_SRCFILE_FULLNAME+="$UDT_SRC_FILENAME#LUDT_SRC_LINENUM"
+                  UDT_SRCFILE_FULLNAME+="$UDT_SRC_FILENAME#L$UDT_SRC_LINENUM"
                   UDT_SINKFILE_FULLNAME="src/main/java/"
                   UDT_SINKFILE_FULLNAME+=$UDT_SINK_FILENAME                
 
@@ -122,11 +122,11 @@ jobs:
                       FULLPATH+=$SECRET_DATA_FILE_FULLNAME
                       FULLPATH+="#L$SECRET_DATA_FILE_LINE_NUMBER"
                       echo $FULLPATH
-                      PR_COMMENT="Data Type | Hardcoded Literal\\n---------- |  ----------\\n $SECRET_DATA_TYPE_1 $SECRET_DATA_TYPE_2 | [$SECRET_DATA_ELEMENT] ($FULLPATH) "
+                      PR_COMMENT="Data Type | Hardcoded Literal\\n---------- |  ----------\\n $LITERAL_DATA_TYPE_1 $LITERAL_DATA_TYPE_2 | [$LITERAL_DATA_ELEMENT] ($FULLPATH) "
                       echo $PR_COMMENT
                       curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments
                       
-                      PR_COMMENT="Source/Sink | Variable Name | Method Name | File Name\\n---------- |  ---------- |  ---------- |  ----------\\n "*Source*" | $UDT_SRC_VARNAME | $UDT_SRC_METHODNAME | $UDT_SRCFILE_FULLNAME\\n "*Sink*" | $UDT_SINK_VARNAME | $UDT_SINK_METHODNAME | "" "
+                      PR_COMMENT="Source/Sink | Variable Name | Method Name | File Name\\n---------- |  ---------- |  ---------- |  ----------\\n "*Source*" | $UDT_SRC_VARNAME | $UDT_SRC_METHODNAME | $UDT_SRCFILE_FULLNAME\\n "*Sink*" | $UDT_SINK_VARNAME | $UDT_SINK_METHODNAME "
                       echo $PR_COMMENT
                       curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments
                       

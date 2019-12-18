@@ -102,10 +102,10 @@ jobs:
                   UDT_SRC_FILENAME=$(jq -r .sensitiveData[0].flows[7][0].fileName /home/circleci/.shiftleft/ocular/sensitive_data.json)
                   UDT_SRC_LINENUM=$(jq -r .sensitiveData[0].flows[7][0].lineNumber /home/circleci/.shiftleft/ocular/sensitive_data.json)
                   UDT_SRC_METHODNAME=$(jq -r .sensitiveData[0].flows[7][0].methodNameShort /home/circleci/.shiftleft/ocular/sensitive_data.json)
-                  UDT_SINK_VARNAME=$(jq -r .sensitiveData[0].flows[7][32].variableName /home/circleci/.shiftleft/ocular/sensitive_data.json)
-                  UDT_SINK_FILENAME=$(jq -r .sensitiveData[0].flows[7][32].fileName /home/circleci/.shiftleft/ocular/sensitive_data.json)
-                  UDT_SINK_LINENUM=$(jq -r .sensitiveData[0].flows[7][32].lineNumber /home/circleci/.shiftleft/ocular/sensitive_data.json)
-                  UDT_SINK_METHODNAME=$(jq -r .sensitiveData[0].flows[7][32].methodNameShort /home/circleci/.shiftleft/ocular/sensitive_data.json)               
+                  UDT_SINK_VARNAME=$(jq -r .sensitiveData[0].flows[7][18].variableName /home/circleci/.shiftleft/ocular/sensitive_data.json)
+                  UDT_SINK_FILENAME=$(jq -r .sensitiveData[0].flows[7][18].fileName /home/circleci/.shiftleft/ocular/sensitive_data.json)
+                  UDT_SINK_LINENUM=$(jq -r .sensitiveData[0].flows[7][18].lineNumber /home/circleci/.shiftleft/ocular/sensitive_data.json)
+                  UDT_SINK_METHODNAME=$(jq -r .sensitiveData[0].flows[7][18].methodNameShort /home/circleci/.shiftleft/ocular/sensitive_data.json)               
          
                   UDT_SRCFILE_FULLNAME="https://github.com/alokshukla1978/tarpit/blob/master/src/main/java/"
                   UDT_SRCFILE_FULLNAME+="$UDT_SRC_FILENAME#L$UDT_SRC_LINENUM"

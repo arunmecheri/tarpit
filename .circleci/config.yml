@@ -129,7 +129,7 @@ jobs:
                       echo $PR_COMMENT
                       curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments
                       
-                      PR_COMMENT="Source/Sink | Leaking Variable | Method Name | File Name\\n---------- |  ---------- |  ---------- |  ----------\\n "*Source*" | $UDT_SRC_VARNAME | $UDT_SRC_METHODNAME | $UDT_SRCFILE_FULLNAME\\n "*Sink*" | $UDT_SINK_VARNAME | $UDT_SINK_METHODNAME "
+                      PR_COMMENT="ShiftLeft detected a variable $UDT_SRC_VARNAME in the method $UDT_SRC_METHODNAME in file $UDT_SRCFILE_FULLNAME that is leaking to $UDT_SINKCAT via variable name $UDT_SINK_VARNAME through $UDT_SINK_METHODNAME"
                       echo $PR_COMMENT
                       curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments
                       

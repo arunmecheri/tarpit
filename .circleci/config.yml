@@ -105,8 +105,9 @@ jobs:
                       PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f7)
                       FULLPATH="https://github.com/alokshukla1978/tarpit/blob/master/"
                       FULLPATH+=$SECRET_DATA_FILE_FULLNAME
+                      FULLPATH+=":L$SECRET_DATA_FILE_LINE_NUMBER"
                       echo $FULLPATH
-                      PR_COMMENT="ShiftLeft found hard coded secrets "
+                      PR_COMMENT="ShiftLeft found hard coded secrets \\n"
                       PR_COMMENT+="Found $SECRET_DATA_ELEMENT of type $SECRET_DATA_TYPE_1 $SECRET_DATA_TYPE_2 in file $FULLPATH at line number $SECRET_DATA_FILE_LINE_NUMBER "
                       echo $PR_COMMENT
                       curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments

@@ -118,7 +118,7 @@ jobs:
                       PR_REPO=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f5)
                       PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f7)
                       FULLPATH="https://github.com/alokshukla1978/tarpit/blob/master/"
-                      FULLPATH+=$SECRET_DATA_FILE_FULLNAME
+                      FULLPATH+=$LITERAL_DATA_FILE_FULLNAME
                       FULLPATH+="#L$LITERAL_DATA_FILE_LINE_NUMBER"
                       echo $FULLPATH
                       PR_COMMENT="Data Type | Hardcoded Literal\\n---------- |  ----------\\n $LITERAL_DATA_TYPE_1 $LITERAL_DATA_TYPE_2 | [$LITERAL_DATA_ELEMENT] ($FULLPATH) "

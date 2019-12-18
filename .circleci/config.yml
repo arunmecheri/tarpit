@@ -48,7 +48,7 @@ jobs:
 
     # Install Ocular!
       - run: 
-          name: Install Ocular Installation!
+          name: Install Ocular Installation
           command: sl update ocular
      
      # build the apps!

@@ -84,11 +84,12 @@ jobs:
           command: |
               echo 'CIRCLE PULL REQUEST ' $CIRCLE_PULL_REQUEST
               echo $CIRCLE_PULL_REQUEST
+              echo $CIRCLE_BRANCH
               RESULTFOUND=$(jq .count /home/circleci/.shiftleft/ocular/sensitive_literal.json)
               if [ "$RESULTFOUND" -eq "0" ]; then
                   PR_COMMENT="No Hardcoded secrets were found. This PR can be merged."
               else
-                  PR_COMMENT="ShiftLeft found vulnerabilities that violate policy. Go here for more details"
+                  
                   SECRET_DATA_ELEMENT=$(jq .sensitiveData[0].dataElement /home/circleci/.shiftleft/ocular/sensitive_literal.json)
                   SECRET_DATA_TYPE_1=$(jq .sensitiveData[0].dataTags[1] /home/circleci/.shiftleft/ocular/sensitive_literal.json)
                   SECRET_DATA_TYPE_2=$(jq .sensitiveData[0].dataTags[2] /home/circleci/.shiftleft/ocular/sensitive_literal.json)
@@ -96,12 +97,19 @@ jobs:
                   SECRET_DATA_FILE_FULLNAME="src/main/java/"
                   SECRET_DATA_FILE_FULLNAME+=SECRET_DATA_FILE_PART
                   SECRET_DATA_FILE_LINE_NUMBER=$(jq -r .sensitiveData[0].flows[0][0].lineNumber /home/circleci/.shiftleft/ocular/sensitive_literal.json)
-              fi
+
+             fi
               if [ ! -z "$CIRCLE_PULL_REQUEST" ]; then
                   PR_USER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f4)
                   PR_REPO=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f5)
                   PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f7)
-                  curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"path\": \"$SECRET_DATA_FILE_FULLNAME\", \"line\": $SECRET_DATA_FILE_LINE_NUMBER, \"side\": \"LEFT\",  \"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/pulls/$PR_NUMBER/comments
+                  FULLPATH="https://github.com/alokshukla1978/tarpit/blob/master/"
+                  FULLPATH+=SECRET_DATA_FILE_FULLNAME
+                  echo $FULLPATH
+                  PR_COMMENT="ShiftLeft found hard coded secrets \r"
+                  PR_COMMENT+="Found $SECRET_DATA_ELEMENT of type $SECRET_DATA_TYPE_1 $SECRET_DATA_TYPE_2 in file $FULLPATH at line number $SECRET_DATA_FILE_LINE_NUMBER "
+                  echo $PR_COMMENT
+                  curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments
                   if [ ! $(echo $BUILD_RESULT | grep "success") ]; then
                       echo "Failing the build since PR violates security policy"
                       exit 1

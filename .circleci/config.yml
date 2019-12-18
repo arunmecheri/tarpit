@@ -78,7 +78,7 @@ jobs:
           name: Hardcoded results printed
           command: cat /home/circleci/.shiftleft/ocular/sensitive_literal.json
   
-     # Test Security Results!
+     # Test Security Results
       - run:
           name: Assert build quality against security standards
           command: |

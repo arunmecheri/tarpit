@@ -106,12 +106,6 @@ jobs:
                       echo "Failing the build since PR violates security policy"
                       exit 1
                   fi
-              else
-                  echo "No PR information. Was this a commit/merge to the master branch?"
-                   if [ ! $(echo $BUILD_RESULT | grep "success") ]; then
-                      echo "Failing the build since commit/merge violates security policy"
-                      exit 1
-                  fi
               fi
     
       

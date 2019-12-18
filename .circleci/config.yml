@@ -90,7 +90,7 @@ jobs:
                   PR_COMMENT="No Hardcoded secrets were found. This PR can be merged."
               else
                   
-                  SECRET_DATA_ELEMENT=$(jq .sensitiveData[0].dataElement /home/circleci/.shiftleft/ocular/sensitive_literal.json)
+                  SECRET_DATA_ELEMENT=$(jq -r .sensitiveData[0].dataElement /home/circleci/.shiftleft/ocular/sensitive_literal.json)
                   SECRET_DATA_TYPE_1=$(jq -r .sensitiveData[0].dataTags[1] /home/circleci/.shiftleft/ocular/sensitive_literal.json)
                   SECRET_DATA_TYPE_2=$(jq -r .sensitiveData[0].dataTags[2] /home/circleci/.shiftleft/ocular/sensitive_literal.json)
                   SECRET_DATA_FILE_PART=$(jq -r .sensitiveData[0].flows[0][0].fileName /home/circleci/.shiftleft/ocular/sensitive_literal.json)
@@ -109,9 +109,8 @@ jobs:
                       PR_COMMENT="ShiftLeft found hard coded secrets "
                       PR_COMMENT+="Found $SECRET_DATA_ELEMENT of type $SECRET_DATA_TYPE_1 $SECRET_DATA_TYPE_2 in file $FULLPATH at line number $SECRET_DATA_FILE_LINE_NUMBER "
                       echo $PR_COMMENT
-                      PR_COMMENT="all good"
                       curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments
-                     if [ ! "$RESULTFOUND" -eq "0"  ]; then
+                     if [ "$RESULTFOUND" -gt "0"  ]; then
                           echo "Failing the build since PR violates security policy"
                           exit 1
                       fi

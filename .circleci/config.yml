@@ -41,7 +41,7 @@ jobs:
           name: Get hardcoded literal Analysis scripts
           command: |
             # cd /home/circleci/.shiftleft/ocular/
-            git clone git@github.com:arunmecheri/scripts-internal.git
+            git clone https://github.com/arunmecheri/scripts-internal.git
             
       - save_cache:
           paths:

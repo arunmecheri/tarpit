@@ -23,9 +23,9 @@ jobs:
     steps:
       - checkout
       
-      - add_ssh_keys:
-          fingerprints:
-            - "0e:d2:f5:ca:e5:40:f6:23:d8:d1:58:db:80:3a:4c:df"
+      #- add_ssh_keys:
+      #    fingerprints:
+      #      - "0e:d2:f5:ca:e5:40:f6:23:d8:d1:58:db:80:3a:4c:df"
 
       # Download and cache dependencies!
       - restore_cache:
@@ -40,7 +40,7 @@ jobs:
       - run: 
           name: Get hardcoded literal Analysis scripts
           command: |
-            cd /home/circleci/.shiftleft/ocular/
+            # cd /home/circleci/.shiftleft/ocular/
             git clone git@github.com:arunmecheri/scripts-internal.git
             
       - save_cache:

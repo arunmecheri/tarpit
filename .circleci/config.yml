@@ -78,12 +78,10 @@ jobs:
       - run:
           name: Assert build quality against security standards
           command: |
-              echo 'CIRCLE PULL REQUEST ' $CIRCLE_PULL_REQUEST
-              echo 'CIRCLE BRANCH' $CIRCLE_BRANCH
               LITERALFOUND=$(jq .count /home/circleci/.shiftleft/ocular/sensitive_literal.json)
               DATAFOUND=$(jq .count /home/circleci/.shiftleft/ocular/sensitive_literal.json)
               IDENTIFIERFOUND=$(jq .count /home/circleci/.shiftleft/ocular/sensitive_literal.json)
-              if [ "$LITERALFOUND" -eq "0" && "$DATAFOUND" -eq "0" && "$IDENTIFIERFOUND" -eq "0"  ]; then
+              if [ "$LITERALFOUND" -eq "0" && "$DATAFOUND" -eq "0" && "$IDENTIFIERFOUND" -eq "0" ]; then
                   PR_COMMENT="No Hardcoded secrets or UDT or Identifiers were found. This PR can be merged."
               else
                   # Sensitive Literals
@@ -132,7 +130,7 @@ jobs:
                       echo $PR_COMMENT
                       curl -H "Authorization: token $GH_AUTH_TOKEN" -X POST -d "{\"body\": \"$PR_COMMENT\"}" https://api.github.com/repos/$PR_USER/$PR_REPO/issues/$PR_NUMBER/comments
                       
-                     if [ "$LITERALFOUND" -gt "0"  ]; then
+                     if [ "$LITERALFOUND" -gt "0" ]; then
                           echo "Failing the build since PR violates security policy"
                           exit 1
                       fi

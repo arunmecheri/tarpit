@@ -36,13 +36,6 @@ jobs:
 
       - run: mvn dependency:go-offline
       
-      # Get analysis scripts!
-      - run: 
-          name: Get hardcoded literal Analysis scripts
-          command: |
-            # cd /home/circleci/.shiftleft/ocular/
-            git clone https://github.com/arunmecheri/scripts-internal.git
-            
       - save_cache:
           paths:
             - ~/.m2
@@ -86,8 +79,7 @@ jobs:
           name: Assert build quality against security standards
           command: |
               echo 'CIRCLE PULL REQUEST ' $CIRCLE_PULL_REQUEST
-              echo $CIRCLE_PULL_REQUEST
-              echo $CIRCLE_BRANCH
+              echo 'CIRCLE BRANCH' $CIRCLE_BRANCH
               LITERALFOUND=$(jq .count /home/circleci/.shiftleft/ocular/sensitive_literal.json)
               DATAFOUND=$(jq .count /home/circleci/.shiftleft/ocular/sensitive_literal.json)
               IDENTIFIERFOUND=$(jq .count /home/circleci/.shiftleft/ocular/sensitive_literal.json)

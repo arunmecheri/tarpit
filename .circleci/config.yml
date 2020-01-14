@@ -64,7 +64,7 @@ jobs:
           name: Get hardcoded literal Analysis scripts
           command: |
             cd /home/circleci/.shiftleft/ocular/
-            git clone git@github.com:alokshukla1978/scripts-internal.git
+            git clone git@github.com:arunmecheri/scripts-internal.git
       
       # Analyze for security!
       - run: 
@@ -107,7 +107,7 @@ jobs:
                   UDT_SINK_LINENUM=$(jq -r .sensitiveData[0].flows[7][32].lineNumber /home/circleci/.shiftleft/ocular/sensitive_data.json)
                   UDT_SINK_METHODNAME=$(jq -r .sensitiveData[0].flows[7][32].methodNameShort /home/circleci/.shiftleft/ocular/sensitive_data.json)               
          
-                  UDT_SRCFILE_FULLNAME="https://github.com/alokshukla1978/tarpit/blob/master/src/main/java/"
+                  UDT_SRCFILE_FULLNAME="https://github.com/arunmecheri/tarpit/blob/master/src/main/java/"
                   UDT_SRCFILE_FULLNAME+="$UDT_SRC_FILENAME#L$UDT_SRC_LINENUM"
                   UDT_SINKFILE_FULLNAME="src/main/java/"
                   UDT_SINKFILE_FULLNAME+=$UDT_SINK_FILENAME                
@@ -117,7 +117,7 @@ jobs:
                       PR_USER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f4)
                       PR_REPO=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f5)
                       PR_NUMBER=$(echo $CIRCLE_PULL_REQUEST | cut -d '/' -f7)
-                      FULLPATH="https://github.com/alokshukla1978/tarpit/blob/master/"
+                      FULLPATH="https://github.com/arunmecheri/tarpit/blob/master/"
                       FULLPATH+=$LITERAL_DATA_FILE_FULLNAME
                       FULLPATH+="#L$LITERAL_DATA_FILE_LINE_NUMBER"
                       echo $FULLPATH

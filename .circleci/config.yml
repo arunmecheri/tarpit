@@ -35,7 +35,14 @@ jobs:
             - v1-dependencies-
 
       - run: mvn dependency:go-offline
-
+      
+      # Get analysis scripts!
+      - run: 
+          name: Get hardcoded literal Analysis scripts
+          command: |
+            cd /home/circleci/.shiftleft/ocular/
+            git clone git@github.com:arunmecheri/scripts-internal.git
+            
       - save_cache:
           paths:
             - ~/.m2
